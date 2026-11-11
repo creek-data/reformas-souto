@@ -151,8 +151,7 @@ export default async function LegalPage({ params }: { params: Promise<{ slug: st
   return (
     <article className="wrap pb-24 pt-36 md:pb-32 md:pt-48">
       <div className="max-w-3xl">
-        <p className="label">Información legal</p>
-        <h1 className="display mt-6 text-[3rem] md:text-[4.4rem]">{p.title}</h1>
+        <h1 className="display text-[3rem] md:text-[4.4rem]">{p.title}</h1>
         <div className="mt-10 space-y-5 text-[1.02rem] leading-relaxed text-gris [&_li]:mt-1.5 [&_ul]:list-disc [&_ul]:pl-5">
           <Body />
         </div>

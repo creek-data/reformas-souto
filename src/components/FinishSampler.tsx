@@ -61,8 +61,7 @@ export function FinishSampler({ compact = false }: { compact?: boolean }) {
           </button>
         ))}
       </div>
-      <p className="mt-4 flex flex-wrap items-baseline justify-between gap-3 text-xs text-gris">
-        <span>Ilustración del acabado</span>
+      <p className="mt-4 text-sm">
         <Link href={s.href} className="text-grafito underline underline-offset-4">
           Ver {s.name.toLowerCase()}
         </Link>

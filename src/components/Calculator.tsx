@@ -168,6 +168,7 @@ export function Calculator({ initial }: { initial?: CategoryId }) {
         {titles[step]}
       </h2>
 
+      <div key={step} className="step-in">
       {/* ——— 1. Trabajo ——— */}
       {step === 0 && (
         <div className="mt-8 space-y-10">
@@ -378,7 +379,7 @@ export function Calculator({ initial }: { initial?: CategoryId }) {
           </div>
           <p className="mt-3 text-right text-sm text-gris">+ IVA: 10 % en tu vivienda si cumple los requisitos, 21 % en el resto</p>
 
-          <div className="mt-10 border-l-2 border-bronce pl-5 text-[0.95rem] leading-relaxed text-gris">
+          <div className="mt-10 bg-lino/70 p-5 text-[0.95rem] leading-relaxed text-gris md:p-6">
             <p>
               Es un precio orientativo con nuestras tarifas. El definitivo te lo damos por escrito cuando veamos la obra
               {unlocked.estimate.pendingFactors.length > 0 &&
@@ -432,6 +433,8 @@ export function Calculator({ initial }: { initial?: CategoryId }) {
           </button>
         </div>
       )}
+
+      </div>
 
       {step < 2 && (
         <div className="mt-12 flex items-center gap-6">

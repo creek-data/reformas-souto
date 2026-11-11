@@ -64,7 +64,7 @@ for (const [vp, size] of Object.entries(viewports)) {
     await page.locator("#f-telefono").fill("691567430");
     await page.locator("#f-direccion").fill("Calle Mayor 3, 2ºB");
     await page.getByRole("button", { name: /^Reservar/ }).click();
-    await page.getByText("Visita reservada").waitFor();
+    await page.getByText("Te esperamos el").waitFor();
     await page.screenshot({ path: `screenshots/${vp}-calc-6-reservada.png`, fullPage: true });
   }
 

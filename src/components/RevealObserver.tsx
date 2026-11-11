@@ -3,11 +3,11 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-/** Un solo IntersectionObserver para todos los [data-reveal] y [data-roller]. */
+/** Un solo IntersectionObserver para el único momento animado al hacer scroll: las capas del alisado ([data-roller]). */
 export function RevealObserver() {
   const pathname = usePathname();
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-shown]), [data-roller]:not([data-shown])");
+    const els = document.querySelectorAll<HTMLElement>("[data-roller]:not([data-shown])");
     if (!("IntersectionObserver" in window)) {
       els.forEach((el) => el.setAttribute("data-shown", ""));
       return;

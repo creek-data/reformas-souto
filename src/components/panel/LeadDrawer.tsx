@@ -118,14 +118,14 @@ export function LeadDrawer({
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
-      <button type="button" aria-label="Cerrar ficha" className="absolute inset-0 bg-grafito/30" onClick={onClose} />
+      <button type="button" aria-label="Cerrar ficha" className="drawer-scrim absolute inset-0 bg-grafito/30" onClick={onClose} />
       <div
         ref={panel}
         tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-labelledby="ficha-titulo"
-        className="relative flex h-full w-full max-w-xl flex-col overflow-y-auto bg-cal shadow-2xl outline-none"
+        className="drawer-panel relative flex h-full w-full max-w-xl flex-col overflow-y-auto bg-cal shadow-[-12px_0_40px_-12px_rgba(28,27,25,0.25)] outline-none"
       >
         <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-piedra bg-cal px-6 py-5">
           <div>
@@ -134,7 +134,9 @@ export function LeadDrawer({
             </p>
             <h2 id="ficha-titulo" className="display mt-1 text-[2rem] leading-tight">{lead.nombre ?? lead.email ?? "Sin nombre"}</h2>
           </div>
-          <button type="button" onClick={onClose} className="min-h-11 min-w-11 text-2xl leading-none text-gris hover:text-grafito" aria-label="Cerrar">×</button>
+          <button type="button" onClick={onClose} className="grid min-h-11 min-w-11 place-items-center text-gris hover:text-grafito" aria-label="Cerrar">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
         </div>
 
         <div className="space-y-8 px-6 py-6">
@@ -272,7 +274,7 @@ export function LeadDrawer({
           </section>
 
           <p role="status" className="min-h-6 text-sm">
-            {error ? <span className="text-[#a33a2a]">{error}</span> : saved ? <span className="text-grafito">✓ {saved}</span> : null}
+            {error ? <span className="text-[#a33a2a]">{error}</span> : saved ? <span className="inline-flex items-center gap-1.5 text-grafito"><svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M2.5 6.2l2.3 2.3 4.7-5" /></svg>{saved}</span> : null}
           </p>
 
           <div className="border-t border-piedra pt-6">

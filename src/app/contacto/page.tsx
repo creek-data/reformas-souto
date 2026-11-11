@@ -15,8 +15,7 @@ export default async function ContactoPage({ searchParams }: { searchParams: Pro
   return (
     <section className="wrap grid gap-16 pb-24 pt-36 md:grid-cols-12 md:pb-36 md:pt-48">
       <div className="md:col-span-5">
-        <p className="label">Contacto</p>
-        <h1 className="display mt-7 text-[3.2rem] sm:text-[4.4rem] lg:text-[5.4rem]">
+        <h1 className="display text-[3.2rem] sm:text-[4.4rem] lg:text-[5.4rem]">
           Cuéntanos <em>qué tienes en mente.</em>
         </h1>
         <p className="mt-8 max-w-md text-[1.1rem] leading-relaxed text-gris">

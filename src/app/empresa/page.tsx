@@ -34,8 +34,7 @@ export default function EmpresaPage() {
     <>
       <section className="wrap grid gap-12 pb-20 pt-36 md:grid-cols-12 md:pb-28 md:pt-48">
         <div className="md:col-span-9">
-          <p className="label">Quiénes somos</p>
-          <h1 className="display mt-7 text-[3.2rem] sm:text-[4.4rem] lg:text-[6rem]">
+          <h1 className="display text-[3.2rem] sm:text-[4.4rem] lg:text-[6rem]">
             Hacemos obras <em>como las querríamos en casa.</em>
           </h1>
           <p className="mt-8 max-w-[40rem] text-[1.125rem] leading-relaxed text-gris">
@@ -48,15 +47,14 @@ export default function EmpresaPage() {
       <section className="border-y border-piedra bg-lino/60 py-20 md:py-28">
         <div className="wrap">
           <h2 className="display text-[2.4rem] md:text-[3.4rem]">Cómo trabajamos</h2>
-          <ol className="mt-12 grid gap-px border border-piedra bg-piedra md:grid-cols-2">
-            {ways.map((w, i) => (
-              <li key={w.t} className="bg-cal p-7 md:p-10">
-                <span className="label tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="display mt-4 text-[1.9rem] leading-tight md:text-[2.2rem]">{w.t}</h3>
+          <ul className="mt-12 grid gap-x-16 gap-y-12 md:grid-cols-2">
+            {ways.map((w) => (
+              <li key={w.t} className="border-t border-grafito pt-6">
+                <h3 className="display text-[1.9rem] leading-tight md:text-[2.2rem]">{w.t}</h3>
                 <p className="mt-4 max-w-md leading-relaxed text-gris">{w.d}</p>
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       </section>
 

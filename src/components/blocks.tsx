@@ -20,17 +20,16 @@ export function Arrow({ className = "" }: { className?: string }) {
   );
 }
 
-export function SectionHead({ label, title, children }: { label: string; title: React.ReactNode; children?: React.ReactNode }) {
+export function SectionHead({ title, children }: { title: React.ReactNode; children?: React.ReactNode }) {
   return (
     <div className="grid gap-6 md:grid-cols-12 md:items-end">
       <div className="md:col-span-7">
-        <p className="label" data-reveal>{label}</p>
-        <h2 className="display mt-5 text-[2.6rem] md:text-[4.2rem]" data-reveal style={{ "--delay": "80ms" } as React.CSSProperties}>
+        <h2 className="display text-[2.6rem] text-balance md:text-[4.2rem]">
           {title}
         </h2>
       </div>
       {children && (
-        <div className="max-w-md text-[1.05rem] leading-relaxed text-gris md:col-span-4 md:col-start-9" data-reveal style={{ "--delay": "160ms" } as React.CSSProperties}>
+        <div className="max-w-md text-[1.05rem] leading-relaxed text-gris md:col-span-4 md:col-start-9">
           {children}
         </div>
       )}
@@ -39,24 +38,23 @@ export function SectionHead({ label, title, children }: { label: string; title: 
 }
 
 /** Índice editorial de servicios: filas numeradas en lugar de tarjetas. */
-export function ServiceIndex({ list = services, start = 0 }: { list?: Service[]; start?: number }) {
+export function ServiceIndex({ list = services }: { list?: Service[] }) {
   return (
     <ul className="border-t border-piedra">
       {list.map((s, i) => {
         const price = fromPrice(s);
         return (
-          <li key={s.slug} className="border-b border-piedra" data-reveal style={{ "--delay": `${i * 40}ms` } as React.CSSProperties}>
+          <li key={s.slug} className="border-b border-piedra">
             <Link
               href={`/servicios/${s.slug}`}
-              className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 gap-y-1 py-6 md:grid-cols-[4rem_minmax(0,5fr)_minmax(0,5fr)_minmax(0,2fr)_2rem] md:py-8"
+              className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 gap-y-1 py-6 md:grid-cols-[minmax(0,5fr)_minmax(0,5fr)_minmax(0,2fr)_2rem] md:py-8"
             >
-              <span className="label tabular-nums">{String(start + i + 1).padStart(2, "0")}</span>
               <span className="display text-[1.9rem] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:translate-x-2 md:text-[2.6rem]">
                 {s.name}
               </span>
               <Arrow className="self-center text-gris transition-transform duration-500 group-hover:translate-x-1 group-hover:text-grafito md:order-last" />
-              <span className="col-start-2 text-[0.95rem] leading-relaxed text-gris md:col-start-auto md:pr-6">{s.lead}</span>
-              <span className="col-start-2 text-sm text-grafito md:col-start-auto md:text-right">
+              <span className="col-start-1 text-[0.95rem] leading-relaxed text-gris md:col-start-auto md:pr-6">{s.lead}</span>
+              <span className="col-start-1 text-sm text-grafito md:col-start-auto md:text-right">
                 {price ?? "Precio tras la visita"}
               </span>
             </Link>
@@ -75,20 +73,17 @@ const groupIntro: Record<CategoryGroup, string> = {
 /** Servicios en dos bloques: lo que tiene precio al momento y lo que se presupuesta con visita. */
 export function GroupedServices() {
   const groups: CategoryGroup[] = ["acabados", "reformas"];
-  let n = 0;
   return (
     <div className="space-y-16 md:space-y-24">
       {groups.map((g) => {
         const list = servicesIn(g);
-        const start = n;
-        n += list.length;
         return (
           <section key={g} id={g} className="scroll-mt-28" aria-labelledby={`grupo-${g}`}>
             <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
               <h3 id={`grupo-${g}`} className="display text-[2rem] md:text-[2.6rem]">{groupLabel[g]}</h3>
               <p className="text-sm text-gris">{groupIntro[g]}</p>
             </div>
-            <ServiceIndex list={list} start={start} />
+            <ServiceIndex list={list} />
           </section>
         );
       })}
@@ -130,12 +125,12 @@ const steps = [
 
 export function Steps() {
   return (
-    <ol className="grid gap-px overflow-hidden border border-piedra bg-piedra sm:grid-cols-2 lg:grid-cols-4">
+    <ol className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
       {steps.map((s, i) => (
-        <li key={s.t} className="flex min-h-64 flex-col bg-cal p-7 md:p-8" data-reveal style={{ "--delay": `${i * 90}ms` } as React.CSSProperties}>
-          <span className="display text-6xl text-bronce">{String(i + 1).padStart(2, "0")}</span>
-          <span className="mt-auto pt-10 text-lg font-medium">{s.t}</span>
-          <span className="mt-2 text-[0.95rem] leading-relaxed text-gris">{s.d}</span>
+        <li key={s.t} className="border-t border-grafito pt-6">
+          <span className="display text-5xl text-bronce tabular-nums">{i + 1}</span>
+          <h3 className="mt-8 text-lg font-medium">{s.t}</h3>
+          <p className="mt-2 text-[0.95rem] leading-relaxed text-gris">{s.d}</p>
         </li>
       ))}
     </ol>

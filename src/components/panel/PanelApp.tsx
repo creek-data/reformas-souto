@@ -172,7 +172,7 @@ export function PanelApp({
 
       <main className="mx-auto max-w-7xl px-4 pb-24 pt-6 md:px-8">
         {demo && (
-          <p className="mb-6 border-l-2 border-bronce bg-[#f6ead2]/60 px-4 py-3 text-sm">
+          <p className="mb-6 bg-[#f6ead2] px-4 py-3 text-sm">
             <strong className="font-medium">Datos de ejemplo.</strong> Las personas de esta lista son inventadas para enseñar cómo funciona el panel.
             {canWrite ? " Desaparecen al conectar la base de datos." : " En este modo los cambios no se guardan."}
           </p>

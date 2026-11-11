@@ -17,6 +17,8 @@
   --font-sans: "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-ui: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @layer base {
@@ -35,6 +37,30 @@
   ::selection {
     background: var(--color-grafito);
     color: var(--color-cal);
+  }
+  /* Superficies del navegador con la paleta: cursor de texto, casillas, barras de scroll y subrayados. */
+  html {
+    caret-color: var(--color-bronce);
+    accent-color: var(--color-grafito);
+    scrollbar-color: var(--color-piedra) var(--color-cal);
+  }
+  a,
+  .underline {
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+  /* Respuesta al pulsar en todo lo pulsable (Emil: 0,97 en 120 ms). */
+  button:not(:disabled),
+  .btn-solid,
+  .btn-ghost {
+    transition-property: color, background-color, border-color, transform;
+    transition-duration: 160ms;
+    transition-timing-function: var(--ease-out-ui);
+  }
+  button:not(:disabled):active,
+  a.btn-solid:active,
+  a.btn-ghost:active {
+    transform: scale(0.97);
   }
   :focus-visible {
     outline: 2px solid var(--color-bronce);
@@ -85,9 +111,6 @@
     border-bottom: 1px solid currentColor;
     transition: gap 0.35s var(--ease-out-soft);
   }
-  .link-arrow:hover {
-    gap: 1rem;
-  }
   .btn-solid {
     display: inline-flex;
     align-items: center;
@@ -99,13 +122,18 @@
     background: var(--color-grafito);
     color: var(--color-cal);
     font-weight: 500;
-    transition: background 0.3s, transform 0.3s var(--ease-out-soft);
   }
-  .btn-solid:hover {
-    background: #000;
-  }
-  .btn-solid:active {
-    transform: scale(0.98);
+  @media (hover: hover) and (pointer: fine) {
+    .btn-solid:hover {
+      background: #000;
+    }
+    .btn-ghost:hover {
+      background: var(--color-grafito);
+      color: var(--color-cal);
+    }
+    .link-arrow:hover {
+      gap: 1rem;
+    }
   }
   .btn-ghost {
     display: inline-flex;
@@ -117,11 +145,6 @@
     border-radius: 999px;
     border: 1px solid var(--color-grafito);
     font-weight: 500;
-    transition: background 0.3s, color 0.3s;
-  }
-  .btn-ghost:hover {
-    background: var(--color-grafito);
-    color: var(--color-cal);
   }
   .field {
     width: 100%;
@@ -145,20 +168,6 @@
 }
 
 /* ——— Movimiento ——— */
-
-/* Revelado al hacer scroll: lo activa <Reveal> añadiendo data-shown. */
-.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(1.5rem);
-  transition:
-    opacity 0.9s var(--ease-out-soft),
-    transform 0.9s var(--ease-out-soft);
-  transition-delay: var(--delay, 0ms);
-}
-.js [data-reveal][data-shown] {
-  opacity: 1;
-  transform: none;
-}
 
 /* «Pasada de rodillo»: la superficie se descubre de izquierda a derecha. */
 .js [data-roller] {
@@ -192,7 +201,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .js [data-reveal],
   .js [data-roller] {
     opacity: 1;
     transform: none;
@@ -221,5 +229,47 @@
 @media (prefers-reduced-motion: reduce) {
   .roll {
     animation: none;
+  }
+}
+
+/* Cada paso de la calculadora entra suave (aparece a menudo: corto y sin rebote). */
+.step-in {
+  transition:
+    opacity 220ms var(--ease-out-ui),
+    transform 220ms var(--ease-out-ui);
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Ficha del panel: entra desde la derecha como un cajón; el fondo se oscurece a la vez. */
+.drawer-panel {
+  transition: transform 320ms var(--ease-drawer);
+  @starting-style {
+    transform: translateX(100%);
+  }
+}
+.drawer-scrim {
+  transition: opacity 240ms ease;
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step-in,
+  .drawer-panel {
+    transition: opacity 150ms ease;
+    transform: none;
+    @starting-style {
+      opacity: 0;
+      transform: none;
+    }
+  }
+  button:not(:disabled):active,
+  a.btn-solid:active,
+  a.btn-ghost:active {
+    transform: none;
   }
 }

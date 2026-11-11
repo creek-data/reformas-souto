@@ -11,7 +11,7 @@ export const metadata = pageMeta({
 export default function ServiciosPage() {
   return (
     <section className="wrap pb-24 pt-36 md:pb-36 md:pt-48">
-      <SectionHead label="Servicios" title={<>Del primer brochazo <em>a la reforma entera.</em></>}>
+      <SectionHead title={<>Del primer brochazo <em>a la reforma entera.</em></>}>
         Precios base sin IVA, con nuestras tarifas. El precio final lo cerramos por escrito tras la visita, según el estado de la superficie
         y dónde esté la obra.
       </SectionHead>

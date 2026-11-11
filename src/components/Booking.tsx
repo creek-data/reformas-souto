@@ -112,7 +112,7 @@ export function Booking({ l, t, intro = true }: { l: string; t: string; intro?: 
 
   if (loadError) {
     return (
-      <div className="border-l-2 border-bronce pl-5">
+      <div className="bg-lino/70 p-5 md:p-6">
         <p className="leading-relaxed text-gris">{loadError}</p>
         <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
           <a href={`tel:${site.phone}`} className="link-arrow tabular-nums">Llamar al {site.phoneDisplay}</a>
@@ -137,8 +137,7 @@ export function Booking({ l, t, intro = true }: { l: string; t: string; intro?: 
     const s = new Date(done.start);
     return (
       <div role="status">
-        <p className="label">Visita reservada</p>
-        <p className="display mt-4 text-[2.2rem] leading-tight md:text-[3rem]">
+        <p className="display text-[2.2rem] leading-tight md:text-[3rem]">
           Te esperamos el <em>{visitText(done.start)}.</em>
         </p>
         <p className="mt-5 max-w-md leading-relaxed text-gris">
@@ -180,8 +179,7 @@ export function Booking({ l, t, intro = true }: { l: string; t: string; intro?: 
   if (lead.visita && !changing) {
     return (
       <div>
-        <p className="label">Ya tienes visita</p>
-        <p className="display mt-4 text-[2.2rem] leading-tight md:text-[2.8rem]">{visitText(lead.visita)}</p>
+        <p className="display text-[2.2rem] leading-tight md:text-[2.8rem]">Ya tienes visita el <em>{visitText(lead.visita)}.</em></p>
         <button type="button" onClick={() => setChanging(true)} className="link-arrow mt-6">Cambiar la hora</button>
       </div>
     );

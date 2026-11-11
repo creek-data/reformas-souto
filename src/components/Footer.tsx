@@ -9,8 +9,7 @@ export function Footer() {
       <div className="wrap">
         <div className="grid gap-12 border-b border-cal/15 pb-16 md:grid-cols-12">
           <div className="md:col-span-7">
-            <p className="label !text-cal/60">Visita gratis y sin compromiso</p>
-            <p className="display mt-5 text-[2.75rem] md:text-[4.5rem]">
+            <p className="display text-[2.75rem] md:text-[4.5rem]">
               ¿Lo vemos
               <br />
               <em>en persona?</em>
@@ -71,6 +70,7 @@ export function Footer() {
           </nav>
           <p className="text-sm text-cal/60">
             © {new Date().getFullYear()} {site.legalName} · CIF {site.cif}
+            <span className="mt-1 block">Las texturas de la web son ilustraciones, no fotos de obra.</span>
           </p>
         </div>
       </div>

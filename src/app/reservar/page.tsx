@@ -13,8 +13,7 @@ export default async function ReservarPage({ searchParams }: { searchParams: Pro
   return (
     <section className="wrap grid gap-14 pb-24 pt-36 md:grid-cols-12 md:pb-36 md:pt-48">
       <div className="md:col-span-4">
-        <p className="label">Visita sin compromiso</p>
-        <h1 className="display mt-7 text-[3rem] sm:text-[4rem] lg:text-[4.6rem]">
+        <h1 className="display text-[3rem] sm:text-[4rem] lg:text-[4.6rem]">
           Elige día <em>y te vemos allí.</em>
         </h1>
         <p className="mt-6 max-w-sm leading-relaxed text-gris">

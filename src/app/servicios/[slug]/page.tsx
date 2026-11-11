@@ -89,7 +89,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <div className="aspect-[4/5] overflow-hidden bg-lino" data-roller>
             <Finish kind={s.finish} />
           </div>
-          <p className="mt-3 text-xs text-gris">Ilustración del acabado</p>
         </div>
       </section>
 
@@ -99,7 +98,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <h2 className="display text-[2.2rem] md:text-[2.8rem]">Cómo lo hacemos</h2>
             <ol className="mt-8 border-t border-piedra">
               {s.process.map((p, i) => (
-                <li key={p} className="flex gap-6 border-b border-piedra py-5" data-reveal style={{ "--delay": `${i * 70}ms` } as React.CSSProperties}>
+                <li key={p} className="flex gap-6 border-b border-piedra py-5">
                   <span className="label tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                   <span className="text-[1.05rem]">{p}</span>
                 </li>
@@ -112,7 +111,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <>
                 <ul className="mt-8 border-t border-piedra">
                   {items.map((i) => (
-                    <li key={i.code} className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-2 border-b border-piedra py-6" data-reveal>
+                    <li key={i.code} className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-2 border-b border-piedra py-6">
                       <span className="text-lg font-medium">{i.name}</span>
                       <span className="display text-3xl tabular-nums">
                         {formatEuros(i.basePriceCents)}
