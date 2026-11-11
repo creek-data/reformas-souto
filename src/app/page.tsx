@@ -4,7 +4,6 @@ import { Arrow, ClientsStrip, FaqList, faqJsonLd, GroupedServices, SectionHead, 
 import { FinishSampler } from "@/components/FinishSampler";
 import { faqs } from "@/content/faq";
 import { site, whatsappUrl } from "@/content/site";
-import { findItem } from "@/content/catalog";
 import { estimate, formatEuros } from "@/lib/pricing/engine";
 import { businessJsonLd, jsonLdScript } from "@/lib/seo";
 
@@ -28,8 +27,6 @@ const example = estimate([
   { code: "alisado-gotele", qty: 60 },
   { code: "esmaltado-puertas", qty: 2 },
 ]);
-
-const fromM2 = (code: string) => formatEuros(findItem(code)!.basePriceCents);
 
 const L = ({ i, children }: { i: number; children: React.ReactNode }) => (
   <span>
@@ -62,10 +59,6 @@ export default function Home() {
               Reformar un baño
             </Link>
           </div>
-          <p className="mt-8 text-sm text-gris">
-            Pintar, desde <span className="text-grafito tabular-nums">{fromM2("pintura-liso")}/m²</span> · Alisar gotelé, desde{" "}
-            <span className="text-grafito tabular-nums">{fromM2("alisado-gotele")}/m²</span> · sin IVA
-          </p>
         </div>
         <div className="md:col-span-5">
           <FinishSampler />
@@ -90,7 +83,7 @@ export default function Home() {
       {/* ——— Servicios ——— */}
       <section className="wrap py-24 md:py-32" aria-labelledby="servicios">
         <SectionHead title={<span id="servicios">Del primer brochazo <em>a la reforma entera.</em></span>}>
-          Pintura y acabados con precio publicado. Baños, fontanería y albañilería con visita y presupuesto por partidas. Todo sin IVA.
+          Pintura y acabados: calcula tu precio en un minuto. Baños, fontanería y albañilería: vamos a verlo y te damos el precio cerrado.
         </SectionHead>
         <div className="mt-14 md:mt-20">
           <GroupedServices />

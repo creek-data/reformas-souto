@@ -2,32 +2,28 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { findItem, unitLabel } from "@/content/catalog";
 import type { FinishKind } from "@/content/services";
-import { formatEuros } from "@/lib/pricing/engine";
 import { Finish } from "./Finish";
 
 interface Sample {
   kind: FinishKind;
   name: string;
   href: string;
-  item?: string;
 }
 
 const samples: Sample[] = [
-  { kind: "alisado", name: "Alisado", href: "/servicios/alisado-de-gotele", item: "alisado-gotele" },
-  { kind: "gotele", name: "Gotelé", href: "/servicios/pintura", item: "pintura-gotele" },
-  { kind: "microcemento", name: "Microcemento", href: "/servicios/microcemento", item: "microcemento-sin-malla" },
-  { kind: "epoxi", name: "Epoxi", href: "/servicios/suelos-epoxi", item: "pintura-epoxi" },
-  { kind: "lacado", name: "Lacado", href: "/servicios/lacados-y-esmaltes", item: "esmaltado-puertas" },
-  { kind: "papel", name: "Papel pintado", href: "/servicios/papel-pintado", item: "papel-pintado" },
+  { kind: "alisado", name: "Alisado", href: "/servicios/alisado-de-gotele" },
+  { kind: "gotele", name: "Gotelé", href: "/servicios/pintura" },
+  { kind: "microcemento", name: "Microcemento", href: "/servicios/microcemento" },
+  { kind: "epoxi", name: "Epoxi", href: "/servicios/suelos-epoxi" },
+  { kind: "lacado", name: "Lacado", href: "/servicios/lacados-y-esmaltes" },
+  { kind: "papel", name: "Papel pintado", href: "/servicios/papel-pintado" },
 ];
 
 /** Muestrario interactivo: cada cambio repite la «pasada de rodillo». */
 export function FinishSampler({ compact = false }: { compact?: boolean }) {
   const [active, setActive] = useState(2);
   const s = samples[active]!;
-  const item = s.item ? findItem(s.item) : undefined;
 
   return (
     <figure className="m-0">
@@ -37,12 +33,6 @@ export function FinishSampler({ compact = false }: { compact?: boolean }) {
         </div>
         <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 md:p-6">
           <span className={`display text-4xl md:text-5xl ${s.kind === "epoxi" ? "text-cal" : "text-grafito"}`}>{s.name}</span>
-          {item && (
-            <span className={`text-right text-sm ${s.kind === "epoxi" ? "text-cal/85" : "text-gris"}`}>
-              desde <strong className="font-medium">{formatEuros(item.basePriceCents)}</strong>/{unitLabel[item.unit]}
-              <br />+ IVA
-            </span>
-          )}
         </figcaption>
       </div>
 

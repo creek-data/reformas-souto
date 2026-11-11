@@ -1,16 +1,8 @@
 import Link from "next/link";
-import { findItem, groupLabel, unitLabel, type CategoryGroup } from "@/content/catalog";
+import { groupLabel, type CategoryGroup } from "@/content/catalog";
 import { clients, testimonials } from "@/content/pending";
 import { services, servicesIn, type Faq, type Service } from "@/content/services";
 import { features } from "@/content/site";
-import { formatEuros } from "@/lib/pricing/engine";
-
-export function fromPrice(s: Service): string | null {
-  const prices = s.items.map(findItem).filter((i) => i != null);
-  if (!prices.length) return null;
-  const min = prices.reduce((a, b) => (b.basePriceCents < a.basePriceCents ? b : a));
-  return `desde ${formatEuros(min.basePriceCents)}/${unitLabel[min.unit]}`;
-}
 
 export function Arrow({ className = "" }: { className?: string }) {
   return (
@@ -42,21 +34,17 @@ export function ServiceIndex({ list = services }: { list?: Service[] }) {
   return (
     <ul className="border-t border-piedra">
       {list.map((s, i) => {
-        const price = fromPrice(s);
         return (
           <li key={s.slug} className="border-b border-piedra">
             <Link
               href={`/servicios/${s.slug}`}
-              className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 gap-y-1 py-6 md:grid-cols-[minmax(0,5fr)_minmax(0,5fr)_minmax(0,2fr)_2rem] md:py-8"
+              className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 gap-y-1 py-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)_2rem] md:py-8"
             >
               <span className="display text-[1.9rem] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:translate-x-2 md:text-[2.6rem]">
                 {s.name}
               </span>
               <Arrow className="self-center text-gris transition-transform duration-500 group-hover:translate-x-1 group-hover:text-grafito md:order-last" />
               <span className="col-start-1 text-[0.95rem] leading-relaxed text-gris md:col-start-auto md:pr-6">{s.lead}</span>
-              <span className="col-start-1 text-sm text-grafito md:col-start-auto md:text-right">
-                {price ?? "Precio tras la visita"}
-              </span>
             </Link>
           </li>
         );
@@ -66,7 +54,7 @@ export function ServiceIndex({ list = services }: { list?: Service[] }) {
 }
 
 const groupIntro: Record<CategoryGroup, string> = {
-  acabados: "Con precio publicado: calcula el tuyo en un minuto.",
+  acabados: "Casi todos, con precio en un minuto en la calculadora.",
   reformas: "Cada obra es distinta: la vemos y te damos precio cerrado por partidas.",
 };
 

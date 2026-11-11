@@ -12,8 +12,8 @@ export default function ServiciosPage() {
   return (
     <section className="wrap pb-24 pt-36 md:pb-36 md:pt-48">
       <SectionHead title={<>Del primer brochazo <em>a la reforma entera.</em></>}>
-        Precios base sin IVA, con nuestras tarifas. El precio final lo cerramos por escrito tras la visita, según el estado de la superficie
-        y dónde esté la obra.
+        Pintura y acabados: calcula tu precio en un minuto. Baños, fontanería y albañilería: vamos a verlo y te damos el precio cerrado
+        por escrito.
       </SectionHead>
       <div className="mt-14 md:mt-20">
         <GroupedServices />
