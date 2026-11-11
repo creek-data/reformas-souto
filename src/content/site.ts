@@ -21,9 +21,9 @@ export const site = {
   email: "soutoproyectospinturas@gmail.com",
   instagram: "https://www.instagram.com/soutopinturasproyectos/",
   instagramHandle: "@soutopinturasproyectos",
-  area: "Madrid y fuera de Madrid",
+  area: "Madrid y alrededores",
   areaLong:
-    "Trabajamos en Madrid y también fuera de Madrid. Fuera de la capital, el desplazamiento se indica en el presupuesto.",
+    "Trabajamos en Madrid capital y también fuera. Si la obra está fuera de Madrid, el desplazamiento va indicado en el presupuesto desde el principio.",
   /** Desplazamiento fuera de Madrid: importe pendiente de validar con la empresa. */
   travelFeeNote: "Se indica en el presupuesto según la ubicación de la obra.",
 } as const;
@@ -46,7 +46,11 @@ export const features = {
 export const whatsappUrl = (text = "Hola, quería pedir presupuesto.") =>
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 
-export const siteUrl = (process.env.SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+/**
+ * URL pública. SITE_URL manda; si no está, se usa la que Netlify inyecta en
+ * cada despliegue (URL = dominio principal del proyecto).
+ */
+export const siteUrl = (process.env.SITE_URL || process.env.URL || "http://localhost:3000").replace(/\/$/, "");
 
 /** Mientras no se lance, la web no se indexa (SITE_INDEXABLE=true para abrirla). */
 export const indexable = process.env.SITE_INDEXABLE === "true";

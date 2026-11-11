@@ -55,9 +55,10 @@ function Privacidad() {
       <p>{site.legalName} (CIF {site.cif}), {site.legalAddress}. Contacto: {site.email}.</p>
       <H>Qué datos tratamos y para qué</H>
       <p>
-        Los que nos facilitas en el formulario o la calculadora (nombre, teléfono, código postal y, si lo indicas, email, mensaje y datos de
-        la obra) para responder a tu solicitud, concertar una visita y preparar tu presupuesto.
+        Los que nos facilitas en la calculadora, el formulario o la reserva de visita: email, código postal y medidas (calculadora);
+        nombre, teléfono y, si lo indicas, email y mensaje (contacto); y la dirección de la obra con el día y la hora elegidos (visita).
       </p>
+      <p>Los usamos para enviarte el precio que has calculado, responder a tu solicitud, organizar la visita y preparar tu presupuesto. No los usamos para publicidad.</p>
       <H>Base jurídica</H>
       <p>La aplicación de medidas precontractuales a petición tuya y tu consentimiento al enviar el formulario.</p>
       <H>Conservación</H>
@@ -68,7 +69,8 @@ function Privacidad() {
       <H>Destinatarios y proveedores</H>
       <p>
         No cedemos tus datos a terceros salvo obligación legal. Usamos proveedores tecnológicos que actúan como encargados del tratamiento
-        (alojamiento web, base de datos y envío de emails), con contrato y garantías adecuadas cuando hay transferencias internacionales.
+        (alojamiento web, base de datos, envío de emails y el calendario donde anotamos las visitas), con contrato y garantías adecuadas
+        cuando hay transferencias internacionales.
       </p>
       <H>Tus derechos</H>
       <p>
@@ -83,8 +85,8 @@ function Cookies() {
   return (
     <>
       <p>
-        Esta web no utiliza cookies de publicidad ni de analítica de terceros. Solo podría usar cookies técnicas imprescindibles para su
-        funcionamiento, que no requieren consentimiento.
+        Esta web no utiliza cookies de publicidad ni de analítica de terceros. Quien visita la web no recibe ninguna cookie. El área
+        privada de la empresa usa una cookie técnica de sesión, imprescindible para entrar, que no requiere consentimiento.
       </p>
       <p>
         Si en el futuro se añaden cookies que requieran consentimiento, se mostrará un aviso que permita aceptarlas o rechazarlas con la

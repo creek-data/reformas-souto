@@ -15,3 +15,10 @@
 | 11 | 2026-11-11 | Secciones sin contenido real ocultas por bandera | No publicar nada inventado ni huecos vacíos |
 | 12 | 2026-11-11 | Web no indexable hasta el lanzamiento | Evitar que Google indexe una versión de pruebas |
 | 13 | 2026-11-11 | Sin cookies no esenciales ni banner | La web no usa analítica de terceros; se revisará si se añade |
+| 14 | 2026-11-11 | El total de la calculadora se desbloquea con email | Pedido por la empresa: guardar el contacto de quien calcula; se le envía el desglose a cambio |
+| 15 | 2026-11-11 | Quitar el paso «Detalles» de la calculadora | Pedía 3 respuestas que no cambiaban el precio; la ubicación sale del código postal |
+| 16 | 2026-11-11 | Reserva de visita propia + Google Calendar por cuenta de servicio | Sin coste ni marca de terceros; respeta lo ocupado y agrupa por zona |
+| 17 | 2026-11-11 | Zona por prefijo de código postal | Aproximación suficiente para agrupar visitas; no es un mapa oficial |
+| 18 | 2026-11-11 | Panel con contraseña compartida | Equipo de 1–3 personas; pasar a usuarios individuales si crece |
+| 19 | 2026-11-11 | Servicios en dos grupos (acabados con precio / reformas con visita) | Baños y fontanería tenían poca visibilidad en una lista plana |
+| 20 | 2026-11-11 | Titular visible aunque no se ejecute la animación | En la auditoría el titular móvil quedaba invisible |

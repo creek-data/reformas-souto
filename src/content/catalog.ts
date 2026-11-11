@@ -6,7 +6,16 @@
 
 export type Unit = "m2" | "ud" | "ml";
 
-export type CategoryId = "paredes" | "carpinteria" | "suelos" | "pladur" | "reformas" | "muebles";
+export type CategoryId =
+  | "paredes"
+  | "carpinteria"
+  | "suelos"
+  | "pladur"
+  | "muebles"
+  | "banos"
+  | "fontaneria"
+  | "albanileria"
+  | "reformas";
 
 export interface CatalogItem {
   code: string;
@@ -55,22 +64,40 @@ export const catalog: CatalogItem[] = [
     includes: "Lijado, una capa de imprimación, corrección de fallos y pintura plástica." },
 ];
 
+export type CategoryGroup = "acabados" | "reformas";
+
 export interface Category {
   id: CategoryId;
+  group: CategoryGroup;
   name: string;
   short: string;
   /** false = no hay precios validados: se ofrece visita para presupuestar. */
   priced: boolean;
+  /** Para trabajos sin precio: opciones rápidas que ayudan a preparar la visita. */
+  intents?: string[];
 }
 
 export const categories: Category[] = [
-  { id: "paredes", name: "Paredes y techos", short: "Pintura, alisado de gotelé y papel pintado", priced: true },
-  { id: "carpinteria", name: "Puertas y metal", short: "Lacados y esmaltes", priced: true },
-  { id: "suelos", name: "Suelos y revestimientos", short: "Microcemento, epoxi y resinas", priced: true },
-  { id: "pladur", name: "Pladur", short: "Tabiques, encintado y pintura", priced: true },
-  { id: "reformas", name: "Reformas", short: "Baños, fontanería y albañilería", priced: false },
-  { id: "muebles", name: "Restauración de muebles", short: "Recuperar y lacar piezas", priced: false },
+  { id: "paredes", group: "acabados", name: "Paredes y techos", short: "Pintar, alisar gotelé o poner papel", priced: true },
+  { id: "carpinteria", group: "acabados", name: "Puertas y metal", short: "Lacar o esmaltar puertas, rejas y barandillas", priced: true },
+  { id: "suelos", group: "acabados", name: "Suelos y revestimientos", short: "Microcemento, epoxi y resinas", priced: true },
+  { id: "pladur", group: "acabados", name: "Pladur", short: "Tabiques, encintado y pintura", priced: true },
+  { id: "muebles", group: "acabados", name: "Restaurar muebles", short: "Recuperar y lacar piezas de madera", priced: false,
+    intents: ["Lacar un mueble", "Restaurar una pieza antigua", "Otra cosa"] },
+  { id: "banos", group: "reformas", name: "Baño", short: "Cambiar la bañera o reformarlo entero", priced: false,
+    intents: ["Cambiar bañera por plato de ducha", "Reforma completa del baño", "Otra cosa"] },
+  { id: "fontaneria", group: "reformas", name: "Fontanería", short: "Tuberías, desagües, sanitarios y grifos", priced: false,
+    intents: ["Cambiar tuberías", "Sanitarios o grifería", "Otra cosa"] },
+  { id: "albanileria", group: "reformas", name: "Albañilería", short: "Tabiques, alicatados, solados y remates", priced: false,
+    intents: ["Tabiques", "Alicatado o solado", "Otra cosa"] },
+  { id: "reformas", group: "reformas", name: "Reforma de vivienda o local", short: "Varios oficios en una misma obra", priced: false,
+    intents: ["Reforma de una vivienda", "Reforma de un local", "Otra cosa"] },
 ];
+
+export const groupLabel: Record<CategoryGroup, string> = {
+  acabados: "Pintura y acabados",
+  reformas: "Reformas",
+};
 
 export const unitLabel: Record<Unit, string> = { m2: "m²", ud: "ud", ml: "m" };
 

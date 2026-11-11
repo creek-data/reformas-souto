@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { findItem, unitLabel } from "@/content/catalog";
+import { findItem, groupLabel, unitLabel, type CategoryGroup } from "@/content/catalog";
 import { clients, testimonials } from "@/content/pending";
-import { services, type Service } from "@/content/services";
+import { services, servicesIn, type Faq, type Service } from "@/content/services";
 import { features } from "@/content/site";
 import { formatEuros } from "@/lib/pricing/engine";
 
@@ -39,7 +39,7 @@ export function SectionHead({ label, title, children }: { label: string; title: 
 }
 
 /** Índice editorial de servicios: filas numeradas en lugar de tarjetas. */
-export function ServiceIndex({ list = services }: { list?: Service[] }) {
+export function ServiceIndex({ list = services, start = 0 }: { list?: Service[]; start?: number }) {
   return (
     <ul className="border-t border-piedra">
       {list.map((s, i) => {
@@ -50,14 +50,14 @@ export function ServiceIndex({ list = services }: { list?: Service[] }) {
               href={`/servicios/${s.slug}`}
               className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-4 gap-y-1 py-6 md:grid-cols-[4rem_minmax(0,5fr)_minmax(0,5fr)_minmax(0,2fr)_2rem] md:py-8"
             >
-              <span className="label tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+              <span className="label tabular-nums">{String(start + i + 1).padStart(2, "0")}</span>
               <span className="display text-[1.9rem] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:translate-x-2 md:text-[2.6rem]">
                 {s.name}
               </span>
               <Arrow className="self-center text-gris transition-transform duration-500 group-hover:translate-x-1 group-hover:text-grafito md:order-last" />
               <span className="col-start-2 text-[0.95rem] leading-relaxed text-gris md:col-start-auto md:pr-6">{s.lead}</span>
               <span className="col-start-2 text-sm text-grafito md:col-start-auto md:text-right">
-                {price ?? "Presupuesto con visita"}
+                {price ?? "Precio tras la visita"}
               </span>
             </Link>
           </li>
@@ -67,11 +67,65 @@ export function ServiceIndex({ list = services }: { list?: Service[] }) {
   );
 }
 
+const groupIntro: Record<CategoryGroup, string> = {
+  acabados: "Con precio publicado: calcula el tuyo en un minuto.",
+  reformas: "Cada obra es distinta: la vemos y te damos precio cerrado por partidas.",
+};
+
+/** Servicios en dos bloques: lo que tiene precio al momento y lo que se presupuesta con visita. */
+export function GroupedServices() {
+  const groups: CategoryGroup[] = ["acabados", "reformas"];
+  let n = 0;
+  return (
+    <div className="space-y-16 md:space-y-24">
+      {groups.map((g) => {
+        const list = servicesIn(g);
+        const start = n;
+        n += list.length;
+        return (
+          <section key={g} id={g} className="scroll-mt-28" aria-labelledby={`grupo-${g}`}>
+            <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+              <h3 id={`grupo-${g}`} className="display text-[2rem] md:text-[2.6rem]">{groupLabel[g]}</h3>
+              <p className="text-sm text-gris">{groupIntro[g]}</p>
+            </div>
+            <ServiceIndex list={list} start={start} />
+          </section>
+        );
+      })}
+    </div>
+  );
+}
+
+export function FaqList({ items }: { items: Faq[] }) {
+  return (
+    <div className="border-t border-piedra">
+      {items.map((f) => (
+        <details key={f.q} className="group border-b border-piedra">
+          <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5 text-[1.08rem] font-medium [&::-webkit-details-marker]:hidden">
+            {f.q}
+            <span aria-hidden className="relative h-4 w-4 shrink-0">
+              <span className="absolute left-0 top-1/2 h-px w-4 bg-grafito" />
+              <span className="absolute left-1/2 top-0 h-4 w-px bg-grafito transition-transform duration-300 group-open:scale-y-0" />
+            </span>
+          </summary>
+          <p className="max-w-2xl pb-6 leading-relaxed text-gris">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  );
+}
+
+export const faqJsonLd = (items: Faq[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+});
+
 const steps = [
-  { t: "Nos cuentas qué necesitas", d: "Por la calculadora, el formulario, WhatsApp o teléfono." },
-  { t: "Visitamos y medimos", d: "Vemos el estado de las superficies antes de dar un precio cerrado." },
-  { t: "Presupuesto por partidas", d: "Cada trabajo con su descripción y su precio, por escrito." },
-  { t: "Ejecución", d: "Con equipo propio y colaboradores especializados." },
+  { t: "Calculas o nos cuentas", d: "Pon las medidas y ve tu precio al momento. Si es un baño o una reforma, cuéntanoslo en dos líneas." },
+  { t: "Eliges día de visita", d: "Reservas tú, en los huecos libres. Si ese día ya estamos cerca de tu casa, te lo marcamos." },
+  { t: "Presupuesto por escrito", d: "Cada trabajo con su medida y su precio. Sabes qué pagas en cada parte y puedes quitar o añadir." },
+  { t: "Manos a la obra", d: "Equipo propio y, cuando la obra lo pide, colaboradores de confianza. Protegemos suelos y muebles antes de empezar." },
 ];
 
 export function Steps() {

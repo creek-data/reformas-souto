@@ -1,21 +1,22 @@
-import { SectionHead, ServiceIndex } from "@/components/blocks";
+import { GroupedServices, SectionHead } from "@/components/blocks";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Servicios de pintura, acabados y reformas en Madrid",
+  title: "Pintura, acabados, baños y reformas en Madrid",
   description:
-    "Pintura de interiores, alisado de gotelé, lacados, microcemento, suelos epoxi, papel pintado, pladur, reformas y restauración de muebles en Madrid.",
+    "Pintura de interiores, alisado de gotelé, lacados, microcemento, epoxi, pladur y papel pintado con precio publicado. Baños, fontanería, albañilería y reformas con visita gratis.",
   path: "/servicios",
 });
 
 export default function ServiciosPage() {
   return (
     <section className="wrap pb-24 pt-36 md:pb-36 md:pt-48">
-      <SectionHead label="Servicios" title={<>Del acabado <em>a la reforma.</em></>}>
-        Precios base sin IVA, según nuestras tarifas. El precio final depende del estado de la superficie y de la ubicación de la obra.
+      <SectionHead label="Servicios" title={<>Del primer brochazo <em>a la reforma entera.</em></>}>
+        Precios base sin IVA, con nuestras tarifas. El precio final lo cerramos por escrito tras la visita, según el estado de la superficie
+        y dónde esté la obra.
       </SectionHead>
       <div className="mt-14 md:mt-20">
-        <ServiceIndex />
+        <GroupedServices />
       </div>
     </section>
   );

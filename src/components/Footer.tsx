@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { services } from "@/content/services";
+import { servicesIn } from "@/content/services";
 import { site, whatsappUrl } from "@/content/site";
-import { Wordmark } from "./Header";
+import { Logo } from "./Logo";
 
 export function Footer() {
   return (
@@ -9,15 +9,16 @@ export function Footer() {
       <div className="wrap">
         <div className="grid gap-12 border-b border-cal/15 pb-16 md:grid-cols-12">
           <div className="md:col-span-7">
-            <p className="label !text-cal/60">Presupuesto sin compromiso</p>
+            <p className="label !text-cal/60">Visita gratis y sin compromiso</p>
             <p className="display mt-5 text-[2.75rem] md:text-[4.5rem]">
-              Hablemos de
+              ¿Lo vemos
               <br />
-              <em>tu proyecto.</em>
+              <em>en persona?</em>
             </p>
+            <p className="mt-6 max-w-md text-cal/70">Calcula tu precio y elige día para la visita. Te damos el presupuesto cerrado por escrito.</p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Link href="/contacto" className="btn-solid !bg-cal !text-grafito hover:!bg-white">
-                Pedir presupuesto
+              <Link href="/calculadora" className="btn-solid !bg-cal !text-grafito hover:!bg-white">
+                Calcular y reservar visita
               </Link>
               <a href={whatsappUrl()} className="btn-ghost !border-cal/40 !text-cal hover:!bg-cal hover:!text-grafito" rel="noopener">
                 WhatsApp
@@ -41,9 +42,17 @@ export function Footer() {
               </ul>
             </div>
             <div>
-              <p className="label !text-cal/60">Servicios</p>
+              <p className="label !text-cal/60">Pintura y acabados</p>
               <ul className="mt-4 space-y-2 text-[0.95rem]">
-                {services.map((s) => (
+                {servicesIn("acabados").map((s) => (
+                  <li key={s.slug}>
+                    <Link href={`/servicios/${s.slug}`} className="hover:underline">{s.name}</Link>
+                  </li>
+                ))}
+              </ul>
+              <p className="label mt-8 !text-cal/60">Reformas</p>
+              <ul className="mt-4 space-y-2 text-[0.95rem]">
+                {servicesIn("reformas").map((s) => (
                   <li key={s.slug}>
                     <Link href={`/servicios/${s.slug}`} className="hover:underline">{s.name}</Link>
                   </li>
@@ -53,7 +62,7 @@ export function Footer() {
           </div>
         </div>
         <div className="flex flex-col gap-8 pt-10 md:flex-row md:items-end md:justify-between">
-          <Wordmark light />
+          <Logo light />
           <nav aria-label="Información legal" className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-cal/70">
             <Link href="/legal/aviso-legal" className="hover:text-cal">Aviso legal</Link>
             <Link href="/legal/privacidad" className="hover:text-cal">Privacidad</Link>
@@ -83,7 +92,7 @@ export function MobileBar() {
         WhatsApp
       </a>
       <Link href="/calculadora" className="flex min-h-14 items-center justify-center bg-grafito text-sm font-medium text-cal">
-        Calcular
+        Mi precio
       </Link>
     </nav>
   );

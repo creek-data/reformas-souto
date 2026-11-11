@@ -4,24 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
+import { Logo } from "./Logo";
 
 const nav = [
-  { href: "/servicios", label: "Servicios" },
-  { href: "/calculadora", label: "Calculadora" },
-  { href: "/empresa", label: "Empresa" },
-  { href: "/contacto", label: "Contacto" },
+  { href: "/servicios#acabados", label: "Pintura y acabados", match: "/servicios" },
+  { href: "/servicios#reformas", label: "Baños y reformas", match: "/servicios/reformas" },
+  { href: "/calculadora", label: "Calculadora", match: "/calculadora" },
+  { href: "/empresa", label: "Empresa", match: "/empresa" },
+  { href: "/contacto", label: "Contacto", match: "/contacto" },
 ];
-
-export function Wordmark({ light = false }: { light?: boolean }) {
-  return (
-    <span className="flex flex-col leading-none">
-      <span className={`display text-[1.9rem] ${light ? "text-cal" : "text-grafito"}`}>Souto</span>
-      <span className={`mt-1 text-[0.62rem] font-medium uppercase tracking-[0.24em] ${light ? "text-cal/70" : "text-gris"}`}>
-        Pinturas y Proyectos
-      </span>
-    </span>
-  );
-}
 
 export function Header() {
   const pathname = usePathname();
@@ -60,24 +51,24 @@ export function Header() {
       >
         <div className="wrap flex h-[4.5rem] items-center justify-between md:h-20">
           <Link href="/" aria-label={`${site.name}, inicio`} className="py-2">
-            <Wordmark />
+            <Logo />
           </Link>
-          <nav aria-label="Principal" className="hidden items-center gap-9 lg:flex">
+          <nav aria-label="Principal" className="hidden items-center gap-7 xl:gap-9 lg:flex">
             {nav.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
-                aria-current={pathname.startsWith(n.href) ? "page" : undefined}
-                className="text-[0.8rem] font-medium uppercase tracking-[0.16em] text-grafito/80 transition-colors hover:text-grafito aria-[current=page]:text-grafito"
+                aria-current={pathname === n.match ? "page" : undefined}
+                className="text-[0.78rem] font-medium uppercase tracking-[0.14em] text-grafito/80 transition-colors hover:text-grafito aria-[current=page]:text-grafito"
               >
                 {n.label}
               </Link>
             ))}
-            <a href={`tel:${site.phone}`} className="text-sm tabular-nums text-gris hover:text-grafito">
+            <a href={`tel:${site.phone}`} className="hidden text-sm tabular-nums text-gris hover:text-grafito xl:inline">
               {site.phoneDisplay}
             </a>
             <Link href="/calculadora" className="btn-solid !min-h-11 !px-5 text-sm">
-              Calcular mi precio
+              Calcular precio
             </Link>
           </nav>
           <button
@@ -105,15 +96,15 @@ export function Header() {
       >
         <nav aria-label="Menú" className="wrap flex h-full flex-col pb-10">
           <ul className="border-t border-piedra">
-            {[{ href: "/", label: "Inicio" }, ...nav].map((n, i) => (
+            {[{ href: "/", label: "Inicio", match: "/" }, ...nav].map((n, i) => (
               <li key={n.href} className="border-b border-piedra">
                 <Link
                   href={n.href}
                   tabIndex={open ? 0 : -1}
                   className="flex items-baseline justify-between py-5"
-                  aria-current={pathname === n.href ? "page" : undefined}
+                  aria-current={pathname === n.match ? "page" : undefined}
                 >
-                  <span className="display text-[2.6rem]">{n.label}</span>
+                  <span className="display text-[2.3rem]">{n.label}</span>
                   <span className="label">0{i + 1}</span>
                 </Link>
               </li>

@@ -31,7 +31,7 @@ export function FinishSampler({ compact = false }: { compact?: boolean }) {
 
   return (
     <figure className="m-0">
-      <div className={`relative overflow-hidden rounded-[2px] bg-lino ${compact ? "aspect-[4/5]" : "aspect-[4/5] md:aspect-[5/6]"}`}>
+      <div className={`relative overflow-hidden rounded-[2px] bg-lino ${compact ? "aspect-[4/5]" : "aspect-[4/3] sm:aspect-[4/5] md:aspect-[5/6]"}`}>
         <div key={s.kind} className="roll absolute inset-0">
           <Finish kind={s.kind} />
         </div>
@@ -62,7 +62,7 @@ export function FinishSampler({ compact = false }: { compact?: boolean }) {
         ))}
       </div>
       <p className="mt-4 flex flex-wrap items-baseline justify-between gap-3 text-xs text-gris">
-        <span>Recreación digital del acabado, no es una fotografía de obra.</span>
+        <span>Ilustración del acabado</span>
         <Link href={s.href} className="text-grafito underline underline-offset-4">
           Ver {s.name.toLowerCase()}
         </Link>

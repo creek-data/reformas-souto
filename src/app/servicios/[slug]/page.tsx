@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Arrow, ServiceIndex } from "@/components/blocks";
+import { Arrow, FaqList, faqJsonLd, ServiceIndex } from "@/components/blocks";
 import { Finish } from "@/components/Finish";
 import { findItem, unitLabel } from "@/content/catalog";
 import { findService, services } from "@/content/services";
@@ -21,7 +21,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const s = findService((await params).slug);
   if (!s) notFound();
   const items = s.items.map(findItem).filter((i) => i != null);
-  const others = services.filter((x) => x.slug !== s.slug).slice(0, 4);
+  const others = services.filter((x) => x.slug !== s.slug && x.group === s.group).slice(0, 4);
+  const cta = s.priced
+    ? { href: `/calculadora?trabajo=${s.category}`, label: "Calcular mi precio" }
+    : { href: `/calculadora?trabajo=${s.category}`, label: "Reservar visita gratis" };
 
   const jsonLd = [
     {
@@ -57,6 +60,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         { "@type": "ListItem", position: 3, name: s.name, item: `${siteUrl}/servicios/${s.slug}` },
       ],
     },
+    ...(s.faqs?.length ? [faqJsonLd(s.faqs)] : []),
   ];
 
   return (
@@ -70,19 +74,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <h1 className="display line-in mt-7 text-[3.2rem] sm:text-[4.4rem] lg:text-[6rem]">
             <span><span>{s.name}</span></span>
           </h1>
-          <p className="mt-8 max-w-[36rem] text-[1.125rem] leading-relaxed text-gris" data-reveal>
-            {s.lead}
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" data-reveal>
-            {s.priced ? (
-              <Link href={`/calculadora?trabajo=${s.category}`} className="btn-solid">
-                Calcular mi precio <Arrow />
-              </Link>
-            ) : (
-              <Link href={`/contacto?servicio=${s.slug}`} className="btn-solid">
-                Pedir visita <Arrow />
-              </Link>
-            )}
+          <p className="mt-6 max-w-[36rem] text-[1.25rem] leading-snug">{s.lead}</p>
+          <p className="mt-5 max-w-[36rem] text-[1.075rem] leading-relaxed text-gris">{s.intro}</p>
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <Link href={cta.href} className="btn-solid">
+              {cta.label} <Arrow />
+            </Link>
             <a href={whatsappUrl(`Hola, quería información sobre ${s.name.toLowerCase()}.`)} rel="noopener" className="link-arrow">
               Consultar por WhatsApp
             </a>
@@ -92,14 +89,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <div className="aspect-[4/5] overflow-hidden bg-lino" data-roller>
             <Finish kind={s.finish} />
           </div>
-          <p className="mt-3 text-xs text-gris">Recreación digital del acabado, no es una fotografía de obra.</p>
+          <p className="mt-3 text-xs text-gris">Ilustración del acabado</p>
         </div>
       </section>
 
       <section className="border-y border-piedra bg-lino/60 py-20 md:py-28">
         <div className="wrap grid gap-14 md:grid-cols-12">
           <div className="md:col-span-5">
-            <p className="label">Cómo lo hacemos</p>
+            <h2 className="display text-[2.2rem] md:text-[2.8rem]">Cómo lo hacemos</h2>
             <ol className="mt-8 border-t border-piedra">
               {s.process.map((p, i) => (
                 <li key={p} className="flex gap-6 border-b border-piedra py-5" data-reveal style={{ "--delay": `${i * 70}ms` } as React.CSSProperties}>
@@ -110,7 +107,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </ol>
           </div>
           <div className="md:col-span-6 md:col-start-7">
-            <p className="label">{items.length ? "Precios base" : "Precio"}</p>
+            <h2 className="display text-[2.2rem] md:text-[2.8rem]">{items.length ? "Precios" : "Precio"}</h2>
             {items.length ? (
               <>
                 <ul className="mt-8 border-t border-piedra">
@@ -134,17 +131,29 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </p>
               </>
             ) : (
-              <p className="mt-8 max-w-md text-[1.05rem] leading-relaxed text-gris">
-                No damos precios cerrados sin ver el trabajo. Concertamos una visita, lo valoramos y te enviamos un presupuesto por partidas
-                sin compromiso.
-              </p>
+              <div className="mt-8 max-w-md">
+                <p className="text-[1.05rem] leading-relaxed text-gris">
+                  No publicamos un precio que luego no se cumpla. Elige día para la visita, lo vemos contigo y te mandamos el presupuesto
+                  cerrado por partidas. La visita es gratis.
+                </p>
+                <Link href={cta.href} className="link-arrow mt-6">Elegir día de visita</Link>
+              </div>
             )}
           </div>
         </div>
       </section>
 
+      {s.faqs?.length ? (
+        <section className="wrap grid gap-12 pt-24 md:grid-cols-12 md:pt-32">
+          <h2 className="display text-[2.2rem] md:col-span-4 md:text-[2.8rem]">Preguntas frecuentes</h2>
+          <div className="md:col-span-7 md:col-start-6">
+            <FaqList items={s.faqs} />
+          </div>
+        </section>
+      ) : null}
+
       <section className="wrap py-24 md:py-32">
-        <p className="label">Otros servicios</p>
+        <p className="label">También hacemos</p>
         <div className="mt-10">
           <ServiceIndex list={others} />
         </div>

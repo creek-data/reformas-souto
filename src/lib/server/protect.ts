@@ -22,7 +22,7 @@ export const tooFast = (startedAt: number, now = Date.now()) => now - startedAt 
 
 /** Guardamos un hash de la IP, no la IP (minimización de datos). */
 export function hashIp(ip: string): string {
-  const salt = process.env.IP_HASH_SALT ?? "souto";
+  const salt = process.env.IP_HASH_SALT ?? process.env.APP_SECRET ?? "souto";
   return createHash("sha256").update(`${salt}:${ip}`).digest("hex").slice(0, 32);
 }
 

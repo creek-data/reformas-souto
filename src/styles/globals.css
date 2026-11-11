@@ -169,19 +169,24 @@
   clip-path: inset(0 0 0 0);
 }
 
-/* Titular por líneas */
+/* Titular por líneas. El texto es legible aunque la animación no llegue a
+   ejecutarse (ahorro de batería, pestañas en segundo plano): solo se desplaza
+   un poco y gana opacidad, nunca parte de invisible. */
 .line-in > span {
   display: block;
-  overflow: hidden;
 }
 .line-in > span > span {
   display: block;
-  transform: translateY(105%);
-  animation: line-up 1.1s var(--ease-out-soft) forwards;
-  animation-delay: calc(var(--i, 0) * 110ms + 150ms);
+  animation: line-up 0.9s var(--ease-out-soft) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
 }
 @keyframes line-up {
+  from {
+    opacity: 0.55;
+    transform: translateY(0.18em);
+  }
   to {
+    opacity: 1;
     transform: none;
   }
 }

@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import { Chrome } from "@/components/Chrome";
 import { Footer, MobileBar } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
 import { indexable, site, siteUrl } from "@/content/site";
-import { businessJsonLd, jsonLdScript } from "@/lib/seo";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: `${site.name} · Pintura, acabados y reformas en Madrid`, template: `%s · ${site.name}` },
+  title: { default: `${site.name} · Pintura, baños y reformas en Madrid`, template: `%s · ${site.name}` },
   description:
-    "Pintura, alisado de gotelé, lacados, microcemento, suelos epoxi, pladur y reformas en Madrid y fuera de Madrid. Calcula un precio orientativo y pide presupuesto sin compromiso.",
+    "Pintura, alisado de gotelé, lacados, microcemento, baños, fontanería y reformas en Madrid. Calcula tu precio al momento y reserva la visita gratis.",
   applicationName: site.name,
   formatDetection: { telephone: false },
   robots: indexable ? undefined : { index: false, follow: false },
@@ -24,10 +24,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(businessJsonLd())} />
       </head>
       <body>
         <a
@@ -36,10 +35,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Saltar al contenido
         </a>
-        <Header />
+        <Chrome>
+          <Header />
+        </Chrome>
         <main id="contenido">{children}</main>
-        <Footer />
-        <MobileBar />
+        <Chrome>
+          <Footer />
+          <MobileBar />
+        </Chrome>
         <RevealObserver />
       </body>
     </html>
